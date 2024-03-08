@@ -4,16 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GetData Example</title>
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 </head>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <body>
 
-    <!-- Кнопка для выполнения запроса -->
-    <button onclick="getData()">Получить данные</button>
+    <div class="container justify-content-center">
+        <h1 class="text-center">LITE HTML version</h1>
+    </div>
 
-    <!-- Место для отображения данных -->
-    <div id="dataContainer"></div>
+    <div class="container mt-3">
+        <div class="input-group input-group-sm mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Ссылка на карту</span>
+          <input type="text" id="input-link" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <button type="button" class="btn btn-primary" onclick="getData()">Запустить парсер</button>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Номер</th>
+              <th scope="col">Ссылка на объявление</th>
+              <th scope="col">Площадь участка (м2)</th>
+              <th scope="col">Площадь дома (м2)</th>
+              <th scope="col">Стоимость (руб)</th>
+              <th scope="col">Цена за квадратный метр</th>
+              <th scope="col">Телефон</th>
+              <th scope="col">Количество просмотров</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+
+          </tbody>
+        </table>
+        <div class="spinner-border text-primary hidden" role="status" id="spinner">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
 
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
