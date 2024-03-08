@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import threading
+
 # Функция для создания веб-драйвера и открытия страницы
 def create_webdriver():
     options = webdriver.ChromeOptions()
