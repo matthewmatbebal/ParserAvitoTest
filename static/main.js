@@ -32,11 +32,11 @@ function displayData(data) {
     const dataContainer = document.getElementById('tbody');
     dataContainer.innerHTML = '';
 
-    data.forEach(item => {
+    data.forEach((item, index) => {
         const row = document.createElement('tr');
 
         const idCell = document.createElement('th');
-        idCell.textContent = item.id;
+        idCell.textContent = index + 1;
 
         const linkCell = document.createElement('td');
         linkCell.innerHTML = '<a href="' + item.link + '"> Link to AD </a>';

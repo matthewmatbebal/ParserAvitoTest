@@ -86,7 +86,7 @@ def get_info_from_ad_page(ad_link):
         data["views_count"] = "N/A"
 
     driver.quit()
-    print(data)
+    return data
 
 
-get_info_from_ad_page("https://www.avito.ru/krasnodar/doma_dachi_kottedzhi/dom_500_m_na_uchastke_6_sot._2805001904")
+#get_info_from_ad_page("https://www.avito.ru/krasnodar/doma_dachi_kottedzhi/dom_500_m_na_uchastke_6_sot._2805001904")
