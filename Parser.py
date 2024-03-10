@@ -2,12 +2,16 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.chrome.options import Options
 import const
 
-
 def create_webdriver():
-    options = webdriver.ChromeOptions()
+    options = Options()
+    options.add_argument('headless')
+    options.add_argument('disable-gpu')
+    options.add_argument('no-sandbox')
+    options.add_argument('disable-dev-shm-usage')
+
     return webdriver.Chrome(options=options)
 
 
@@ -22,22 +26,24 @@ def get_links_from_map_page(link):
                                                     const.ADS_LINK_CLASS)  # TODO аналогично делаем для других классов / id
     # TODO should check count of ads_from_map_page_list. If more 12 -> skip
     print(ads_from_map_page_list)
-    link_list = []  # начало нового скрипта
-    ads_count = 0
-    for current_ad in ads_from_map_page_list:
-        ad_link = current_ad.get_attribute("href")
-        link_list.append(ad_link)
-        ads_count += 1
-        if ads_count >= 12:
-            break
-
+    link_list = [current_ad.get_attribute("href") for current_ad in ads_from_map_page_list[:12]]
     map_page.quit()
-    return link_list  # конец нового скрипта
+    return link_list
 
-    # link_list = [current_ad.get_attribute("href") for current_ad in ads_from_map_page_list]
+
+
+    # link_list = []  # начало нового скрипта
+    # ads_count = 0
+    # for current_ad in ads_from_map_page_list:
+    #     ad_link = current_ad.get_attribute("href")
+    #     link_list.append(ad_link)
+    #     ads_count += 1
+    #     if ads_count >= 12:
+    #         break
     #
     # map_page.quit()
-    # return link_list
+    # return link_list  # конец нового скрипта
+
 
 
 def get_info_from_ad_page(ad_link):
@@ -95,8 +101,8 @@ def get_info_from_ad_page(ad_link):
         data["views_count"] = "N/A"
 
     driver.quit()
-    #return data
-    print(data)
+    return data
+    #print(data)
 
 
-get_info_from_ad_page("https://www.avito.ru/krasnodar/doma_dachi_kottedzhi/dom_500_m_na_uchastke_6_sot._2805001904")
+#get_info_from_ad_page("https://www.avito.ru/krasnodar/doma_dachi_kottedzhi/dom_500_m_na_uchastke_6_sot._2805001904")
