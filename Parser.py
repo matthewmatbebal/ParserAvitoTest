@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -14,12 +16,12 @@ def get_links_from_map_page(link):
     map_page.get(link)
 
 
-
+    time.sleep(2)
     # get links from map page
     ads_from_map_page_list = map_page.find_elements(By.CLASS_NAME,
                                                     const.ADS_LINK_CLASS)  # TODO аналогично делаем для других классов / id
     # TODO should check count of ads_from_map_page_list. If more 12 -> skip
-
+    print(ads_from_map_page_list)
     link_list = []  # начало нового скрипта
     ads_count = 0
     for current_ad in ads_from_map_page_list:
@@ -44,8 +46,15 @@ def get_info_from_ad_page(ad_link):
 
     data = {"link": ad_link}
 
+
     try:
-        square_field_elements = driver.find_elements(By.CLASS_NAME, "params-paramsList__item-_2Y2O")
+        ad_name_element = driver.find_element(By.CSS_SELECTOR, '.styles-module-root-TWVKW.styles-module-root-_KFFt.styles-module-size_xxxl-A2qfi.styles-module-size_xxxl-_bK04.stylesMarningNormal-module-root-OSCNq.stylesMarningNormal-module-header-3xl-k0ckc')
+        data["ad_name"] = ad_name_element.text
+    except:
+        data["ad_name"] = "N/A"
+
+    try:
+        square_field_elements = driver.find_elements(By.CSS_SELECTOR, ".params-paramsList__item-_2Y2O")
         for square_field_element in square_field_elements:
             square_field_element_text = square_field_element.text
             if "сот." in square_field_element_text:
@@ -86,7 +95,8 @@ def get_info_from_ad_page(ad_link):
         data["views_count"] = "N/A"
 
     driver.quit()
-    return data
+    #return data
+    print(data)
 
 
-#get_info_from_ad_page("https://www.avito.ru/krasnodar/doma_dachi_kottedzhi/dom_500_m_na_uchastke_6_sot._2805001904")
+get_info_from_ad_page("https://www.avito.ru/krasnodar/doma_dachi_kottedzhi/dom_500_m_na_uchastke_6_sot._2805001904")
