@@ -18,6 +18,9 @@ def create_webdriver():
     options.add_argument("disable-features=VizDisplayCompositor")
     options.add_argument("disable-features=IsolateOrigins,site-per-process")
     options.add_argument("blink-settings=imagesEnabled=false")
+
+    options.binary_location = './chromedriver'
+
     return webdriver.Chrome(options=options)
 
 
